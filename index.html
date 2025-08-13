@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Tutoring - Payment</title>
     <style>
-        body {<form>
-    <script src="https://checkout.razorpay.com/v1/payment-button.js"
-            data-payment_button_id="pl_R4tEB0L06aPwr2" async>
-    </script>
-</form>
-
+        body {
             font-family: Arial, sans-serif;
             background: #f4f4f4;
             text-align: center;
@@ -36,10 +31,14 @@
 <body>
     <h1>Free Tutoring - Support Us</h1>
     <p>Pay ₹299 to get started</p>
-    <button id="payBtn">Pay ₹299</button>
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script src="razorpay.js"></script>
+    <!-- Razorpay Payment Button -->
+    <form>
+        <script 
+            src="https://checkout.razorpay.com/v1/payment-button.js" 
+            data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
+        </script>
+    </form>
+
 </body>
 </html>
-
