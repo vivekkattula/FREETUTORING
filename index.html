@@ -3,37 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Tutoring - Support Us</title>
+    <title>Free Tutoring</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
         <h1>Free Tutoring</h1>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Courses</a>
-            <a href="#">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="#payment">Payment</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h2>Quality Learning for Everyone</h2>
-        <p>Join our mission to provide free tutoring to students across the globe.</p>
+        <h2>Find Your Perfect Tutor</h2>
+        <p>Learn from the best tutors across various subjects</p>
     </section>
 
-    <section class="payment-section">
-        <h3>Support Us</h3>
-        <p>Pay ₹299 to help us keep tutoring free for everyone.</p>
+    <section class="tutors">
+        <div class="tutor-card">
+            <img src="images/tutor1.jpg" alt="Tutor 1">
+            <h3>Priya Sharma</h3>
+            <p>Mathematics Expert</p>
+        </div>
+        <div class="tutor-card">
+            <img src="images/tutor2.jpg" alt="Tutor 2">
+            <h3>Rahul Mehta</h3>
+            <p>Physics Specialist</p>
+        </div>
+        <div class="tutor-card">
+            <img src="images/tutor3.jpg" alt="Tutor 3">
+            <h3>Neha Gupta</h3>
+            <p>English Language Coach</p>
+        </div>
+    </section>
+
+    <section id="payment" class="payment">
+        <h2>Book Your First Lesson</h2>
+        <p>Pay ₹299 to start learning today</p>
         <form>
             <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
+                    data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
             </script>
         </form>
     </section>
 
     <footer>
-        <p>© 2025 Free Tutoring. All Rights Reserved.</p>
+        <p>© 2025 Free Tutoring. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
