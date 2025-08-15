@@ -1,74 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Tutoring</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Tutoring</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#tutors">Tutors</a></li>
-            <li><a href="#payment">Payment</a></li>
-        </ul>
-    </nav>
+  <header>
+    <h1>Free Tutoring</h1>
+    <p>Find the best tutors and start learning today!</p>
+  </header>
 
-    <!-- Header Section -->
-    <header>
-        <h1>Free Tutoring</h1>
-        <p>Quality Learning for Everyone</p>
-    </header>
+  <!-- Search & Filter -->
+  <section class="filter-section">
+    <input type="text" id="searchBar" placeholder="Search for a tutor..." />
+    <select id="categoryFilter">
+      <option value="">All Subjects</option>
+      <option value="Math">Math</option>
+      <option value="Science">Science</option>
+      <option value="English">English</option>
+    </select>
+  </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2>About Us</h2>
-        <p>We are committed to providing free tutoring to students worldwide, ensuring access to quality education for all.</p>
-    </section>
+  <!-- Tutor Cards -->
+  <section class="tutor-list" id="tutorList">
+    <div class="tutor-card" data-category="Math">
+      <img src="tutor1.jpg" alt="Tutor 1" />
+      <h3>John Smith</h3>
+      <p>Math Expert</p>
+      <button>Book Now</button>
+    </div>
 
-    <!-- Tutors Section -->
-    <section id="tutors">
-        <h2>Find Your Perfect Tutor</h2>
-        <p>Learn from the best tutors across various subjects</p>
+    <div class="tutor-card" data-category="Science">
+      <img src="tutor2.jpg" alt="Tutor 2" />
+      <h3>Sarah Lee</h3>
+      <p>Science Teacher</p>
+      <button>Book Now</button>
+    </div>
 
-        <div class="tutor-container">
-            <div class="tutor-card">
-                <img src="tutor1.png" alt="Tutor 1">
-                <h3>Priya Sharma</h3>
-                <p>Mathematics Expert</p>
-            </div>
-            <div class="tutor-card">
-                <img src="tutor2.png" alt="Tutor 2">
-                <h3>Rahul Mehta</h3>
-                <p>Physics Specialist</p>
-            </div>
-            <div class="tutor-card">
-                <img src="tutor3.png" alt="Tutor 3">
-                <h3>Neha Gupta</h3>
-                <p>English Language Coach</p>
-            </div>
-        </div>
-    </section>
+    <div class="tutor-card" data-category="English">
+      <img src="tutor3.jpg" alt="Tutor 3" />
+      <h3>Emily Davis</h3>
+      <p>English Tutor</p>
+      <button>Book Now</button>
+    </div>
+  </section>
 
-    <!-- Payment Section -->
-    <section id="payment" class="payment-section">
-        <h2>Support Us</h2>
-        <p>Pay ₹299 to help us keep tutoring free for everyone.</p>
-        <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js"
-                data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
-            </script>
-        </form>
-    </section>
+  <!-- Payment Section -->
+  <section class="payment">
+    <h2>Pay ₹299 to Get Started</h2>
+    <form>
+      <script src="https://checkout.razorpay.com/v1/payment-button.js"
+              data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
+      </script>
+    </form>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2025 Free Tutoring. All Rights Reserved.
-    </footer>
+  <script>
+    const searchBar = document.getElementById("searchBar");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const tutorCards = document.querySelectorAll(".tutor-card");
 
+    function filterTutors() {
+      const searchText = searchBar.value.toLowerCase();
+      const category = categoryFilter.value;
+
+      tutorCards.forEach(card => {
+        const name = card.querySelector("h3").textContent.toLowerCase();
+        const subject = card.dataset.category;
+
+        if (
+          (name.includes(searchText) || searchText === "") &&
+          (category === "" || subject === category)
+        ) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    searchBar.addEventListener("input", filterTutors);
+    categoryFilter.addEventListener("change", filterTutors);
+  </script>
 </body>
 </html>

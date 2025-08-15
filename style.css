@@ -1,122 +1,76 @@
-/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f8fb;
+  color: #333;
+  text-align: center;
 }
 
-/* Navbar */
-nav {
-    background-color: #004080;
-    padding: 15px 0;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
-/* Header Section */
 header {
-    text-align: center;
-    background-color: #e6f0ff;
-    padding: 50px 20px;
+  background: #0077cc;
+  color: white;
+  padding: 20px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    color: #00264d;
+.filter-section {
+  margin: 20px;
 }
 
-header p {
-    font-size: 1.2em;
-    color: #333;
+.filter-section input,
+.filter-section select {
+  padding: 10px;
+  font-size: 16px;
+  margin: 5px;
 }
 
-/* Section Titles */
-section h2 {
-    text-align: center;
-    color: #00264d;
-    margin-bottom: 10px;
-}
-
-section p {
-    text-align: center;
-    color: #555;
-}
-
-/* Tutor Cards */
-.tutor-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+.tutor-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
 }
 
 .tutor-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 15px;
-    width: 280px;
-    text-align: center;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
 }
 
 .tutor-card img {
-    width: 100%;
-    height: 200px;       /* Fixed height for uniform images */
-    object-fit: cover;   /* Avoid distortion */
-    border-radius: 8px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .tutor-card h3 {
-    margin-top: 10px;
-    color: #004080;
+  margin: 10px 0 5px;
 }
 
 .tutor-card p {
-    color: #666;
+  color: #555;
 }
 
-/* Payment Section */
-.payment-section {
-    text-align: center;
-    margin: 30px 0;
+.tutor-card button {
+  background: #0077cc;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 30px;
+.tutor-card button:hover {
+  background: #005fa3;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .tutor-container {
-        flex-direction: column;
-        align-items: center;
-    }
+.payment {
+  background: #eef6ff;
+  padding: 20px;
+  margin-top: 20px;
 }
