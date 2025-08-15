@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Tutoring - Payment</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-        button {
-            background: #528FF0;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #3c6fd6;
-        }
-    </style>
+    <title>Free Tutoring - Support Us</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Free Tutoring - Support Us</h1>
-    <p>Pay ₹299 to get started</p>
+    <header>
+        <h1>Free Tutoring</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Courses</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
 
-    <!-- Razorpay Payment Button -->
-    <form>
-        <script 
-            src="https://checkout.razorpay.com/v1/payment-button.js" 
-            data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
-        </script>
-    </form>
+    <section class="hero">
+        <h2>Quality Learning for Everyone</h2>
+        <p>Join our mission to provide free tutoring to students across the globe.</p>
+    </section>
 
+    <section class="payment-section">
+        <h3>Support Us</h3>
+        <p>Pay ₹299 to help us keep tutoring free for everyone.</p>
+        <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
+            </script>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 Free Tutoring. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
