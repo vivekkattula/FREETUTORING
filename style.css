@@ -1,50 +1,68 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: white;
-    color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Tutoring</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-header {
-    background-color: #004080; /* Dark Blue */
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
+    <!-- Navigation Bar -->
+    <header>
+        <h1>Free Tutoring</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Payment</a>
+        </nav>
+    </header>
 
-header h1 {
-    margin: 0;
-}
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Quality Learning for Everyone</h2>
+        <p>Join our mission to provide free tutoring to students across the globe.</p>
+    </section>
 
-nav {
-    margin-top: 10px;
-}
+    <!-- Tutors Section -->
+    <section class="tutors">
+        <h2>Find Your Perfect Tutor</h2>
+        <p>Learn from the best tutors across various subjects</p>
+        <div class="tutor-list">
+            <div class="tutor-card">
+                <img src="tutor1.png" alt="Tutor 1">
+                <h3>Priya Sharma</h3>
+                <p>Mathematics Expert</p>
+            </div>
+            <div class="tutor-card">
+                <img src="tutor2.png" alt="Tutor 2">
+                <h3>Rahul Mehta</h3>
+                <p>Physics Specialist</p>
+            </div>
+            <div class="tutor-card">
+                <img src="tutor3.png" alt="Tutor 3">
+                <h3>Neha Gupta</h3>
+                <p>English Language Coach</p>
+            </div>
+        </div>
+    </section>
 
-nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: bold;
-}
+    <!-- Payment Section -->
+    <section class="payment">
+        <h2>Support Us</h2>
+        <p>Pay ₹299 to help us keep tutoring free for everyone.</p>
+        <form>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js" 
+                    data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
+            </script>
+        </form>
+    </section>
 
-nav a:hover {
-    text-decoration: underline;
-}
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Free Tutoring. All Rights Reserved.</p>
+    </footer>
 
-.hero {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #e6f2ff; /* Light Blue */
-}
-
-.payment-section {
-    text-align: center;
-    padding: 30px;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
+</body>
+</html>
