@@ -1,68 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Tutoring</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
 
-    <!-- Navigation Bar -->
-    <header>
-        <h1>Free Tutoring</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Payment</a>
-        </nav>
-    </header>
+/* Navbar */
+nav {
+    background-color: #004080;
+    padding: 15px 0;
+}
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2>Quality Learning for Everyone</h2>
-        <p>Join our mission to provide free tutoring to students across the globe.</p>
-    </section>
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
 
-    <!-- Tutors Section -->
-    <section class="tutors">
-        <h2>Find Your Perfect Tutor</h2>
-        <p>Learn from the best tutors across various subjects</p>
-        <div class="tutor-list">
-            <div class="tutor-card">
-                <img src="tutor1.png" alt="Tutor 1">
-                <h3>Priya Sharma</h3>
-                <p>Mathematics Expert</p>
-            </div>
-            <div class="tutor-card">
-                <img src="tutor2.png" alt="Tutor 2">
-                <h3>Rahul Mehta</h3>
-                <p>Physics Specialist</p>
-            </div>
-            <div class="tutor-card">
-                <img src="tutor3.png" alt="Tutor 3">
-                <h3>Neha Gupta</h3>
-                <p>English Language Coach</p>
-            </div>
-        </div>
-    </section>
+nav ul li {
+    margin: 0 15px;
+}
 
-    <!-- Payment Section -->
-    <section class="payment">
-        <h2>Support Us</h2>
-        <p>Pay ₹299 to help us keep tutoring free for everyone.</p>
-        <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js" 
-                    data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
-            </script>
-        </form>
-    </section>
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Free Tutoring. All Rights Reserved.</p>
-    </footer>
+nav ul li a:hover {
+    text-decoration: underline;
+}
 
-</body>
-</html>
+/* Header Section */
+header {
+    text-align: center;
+    background-color: #e6f0ff;
+    padding: 50px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #00264d;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Section Titles */
+section h2 {
+    text-align: center;
+    color: #00264d;
+    margin-bottom: 10px;
+}
+
+section p {
+    text-align: center;
+    color: #555;
+}
+
+/* Tutor Cards */
+.tutor-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.tutor-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    width: 280px;
+    text-align: center;
+}
+
+.tutor-card img {
+    width: 100%;
+    height: 200px;       /* Fixed height for uniform images */
+    object-fit: cover;   /* Avoid distortion */
+    border-radius: 8px;
+}
+
+.tutor-card h3 {
+    margin-top: 10px;
+    color: #004080;
+}
+
+.tutor-card p {
+    color: #666;
+}
+
+/* Payment Section */
+.payment-section {
+    text-align: center;
+    margin: 30px 0;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tutor-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
