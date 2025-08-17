@@ -1,89 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Tutoring</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
     <h1>Free Tutoring</h1>
-    <p>Find the best tutors and start learning today!</p>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Payment</a>
+    </nav>
   </header>
 
-  <!-- Search & Filter -->
-  <section class="filter-section">
-    <input type="text" id="searchBar" placeholder="Search for a tutor..." />
-    <select id="categoryFilter">
-      <option value="">All Subjects</option>
-      <option value="Math">Math</option>
-      <option value="Science">Science</option>
-      <option value="English">English</option>
+  <section class="hero">
+    <h2>Find the best tutors and start learning today!</h2>
+    <input type="text" placeholder="Search for a tutor...">
+    <select>
+      <option>All Subjects</option>
+      <option>Math</option>
+      <option>Science</option>
+      <option>English</option>
     </select>
   </section>
 
-  <!-- Tutor Cards -->
-  <section class="tutor-list" id="tutorList">
-    <div class="tutor-card" data-category="Math">
-      <img src="tutor1.jpg" alt="Tutor 1" />
+  <section class="tutors">
+    <div class="tutor-card">
+      <img src="https://raw.githubusercontent.com/vivekkattula/FREETUTORING/main/tutor1.png" alt="Tutor 1">
       <h3>John Smith</h3>
       <p>Math Expert</p>
       <button>Book Now</button>
     </div>
-
-    <div class="tutor-card" data-category="Science">
-      <img src="tutor2.jpg" alt="Tutor 2" />
+    <div class="tutor-card">
+      <img src="https://raw.githubusercontent.com/vivekkattula/FREETUTORING/main/tutor2.png" alt="Tutor 2">
       <h3>Sarah Lee</h3>
       <p>Science Teacher</p>
       <button>Book Now</button>
     </div>
-
-    <div class="tutor-card" data-category="English">
-      <img src="tutor3.jpg" alt="Tutor 3" />
+    <div class="tutor-card">
+      <img src="https://raw.githubusercontent.com/vivekkattula/FREETUTORING/main/tutor3.png" alt="Tutor 3">
       <h3>Emily Davis</h3>
       <p>English Tutor</p>
       <button>Book Now</button>
     </div>
   </section>
 
-  <!-- Payment Section -->
   <section class="payment">
     <h2>Pay ₹299 to Get Started</h2>
     <form>
       <script src="https://checkout.razorpay.com/v1/payment-button.js"
-              data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
-      </script>
+              data-payment_button_id="pl_R4tEB0LO6aPwr2" async></script>
     </form>
   </section>
 
-  <script>
-    const searchBar = document.getElementById("searchBar");
-    const categoryFilter = document.getElementById("categoryFilter");
-    const tutorCards = document.querySelectorAll(".tutor-card");
+  <footer>
+    <p>© 2025 Free Tutoring. All rights reserved.</p>
+  </footer>
 
-    function filterTutors() {
-      const searchText = searchBar.value.toLowerCase();
-      const category = categoryFilter.value;
-
-      tutorCards.forEach(card => {
-        const name = card.querySelector("h3").textContent.toLowerCase();
-        const subject = card.dataset.category;
-
-        if (
-          (name.includes(searchText) || searchText === "") &&
-          (category === "" || subject === category)
-        ) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    }
-
-    searchBar.addEventListener("input", filterTutors);
-    categoryFilter.addEventListener("change", filterTutors);
-  </script>
 </body>
 </html>
