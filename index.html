@@ -7,60 +7,59 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+  <!-- Header with Navigation -->
   <header>
     <h1>Free Tutoring</h1>
     <nav>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <a href="#">Payment</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <h2>Find the best tutors and start learning today!</h2>
-    <input type="text" placeholder="Search for a tutor...">
-    <select>
-      <option>All Subjects</option>
-      <option>Math</option>
-      <option>Science</option>
-      <option>English</option>
-    </select>
+    <h2>Find the Best Tutors for Your Learning Needs</h2>
+    <p>Connect with expert tutors and start learning today.</p>
   </section>
 
+  <!-- Tutors Section -->
   <section class="tutors">
-    <div class="tutor-card">
-      <img src="https://raw.githubusercontent.com/vivekkattula/FREETUTORING/main/tutor1.png" alt="Tutor 1">
-      <h3>John Smith</h3>
-      <p>Math Expert</p>
-      <button>Book Now</button>
-    </div>
-    <div class="tutor-card">
-      <img src="https://raw.githubusercontent.com/vivekkattula/FREETUTORING/main/tutor2.png" alt="Tutor 2">
-      <h3>Sarah Lee</h3>
-      <p>Science Teacher</p>
-      <button>Book Now</button>
-    </div>
-    <div class="tutor-card">
-      <img src="https://raw.githubusercontent.com/vivekkattula/FREETUTORING/main/tutor3.png" alt="Tutor 3">
-      <h3>Emily Davis</h3>
-      <p>English Tutor</p>
-      <button>Book Now</button>
+    <h2>Our Tutors</h2>
+    <div class="tutor-list">
+      <div class="tutor-card">
+        <img src="tutor1.jpg" alt="Tutor 1">
+        <h3>John Doe</h3>
+        <p>Math & Physics Tutor</p>
+      </div>
+      <div class="tutor-card">
+        <img src="tutor2.jpg" alt="Tutor 2">
+        <h3>Priya Sharma</h3>
+        <p>English & Literature Tutor</p>
+      </div>
+      <div class="tutor-card">
+        <img src="tutor3.jpg" alt="Tutor 3">
+        <h3>Sophia Lee</h3>
+        <p>Chemistry Tutor</p>
+      </div>
     </div>
   </section>
 
+  <!-- Payment Section -->
   <section class="payment">
-    <h2>Pay ₹299 to Get Started</h2>
+    <h2>Book a Tutoring Session</h2>
+    <p>Pay ₹299 to get started</p>
     <form>
-      <script src="https://checkout.razorpay.com/v1/payment-button.js"
-              data-payment_button_id="pl_R4tEB0LO6aPwr2" async></script>
+      <script 
+        src="https://checkout.razorpay.com/v1/payment-button.js"
+        data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
+      </script>
     </form>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>© 2025 Free Tutoring. All rights reserved.</p>
   </footer>
-
 </body>
 </html>
