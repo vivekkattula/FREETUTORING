@@ -7,59 +7,52 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header with Navigation -->
+  <!-- Header -->
   <header>
     <h1>Free Tutoring</h1>
     <nav>
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Home</a>
       <a href="login.html">Login</a>
       <a href="register.html">Register</a>
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h2>Find the Best Tutors for Your Learning Needs</h2>
-    <p>Connect with expert tutors and start learning today.</p>
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <label for="subject">Filter by Subject:</label>
+    <select id="subject">
+      <option value="all">All</option>
+      <option value="math">Math</option>
+      <option value="science">Science</option>
+      <option value="english">English</option>
+    </select>
   </section>
 
-  <!-- Tutors Section -->
-  <section class="tutors">
-    <h2>Our Tutors</h2>
-    <div class="tutor-list">
-      <div class="tutor-card">
-        <img src="tutor1.jpg" alt="Tutor 1">
-        <h3>John Doe</h3>
-        <p>Math & Physics Tutor</p>
-      </div>
-      <div class="tutor-card">
-        <img src="tutor2.jpg" alt="Tutor 2">
-        <h3>Priya Sharma</h3>
-        <p>English & Literature Tutor</p>
-      </div>
-      <div class="tutor-card">
-        <img src="tutor3.jpg" alt="Tutor 3">
-        <h3>Sophia Lee</h3>
-        <p>Chemistry Tutor</p>
-      </div>
+  <!-- Tutor Cards -->
+  <main class="tutor-list">
+    <div class="tutor-card">
+      <img src="tutor1.png" alt="Tutor 1">
+      <h3>Ravi Sharma</h3>
+      <p>Math Specialist</p>
+      <p>⭐ 4.9 (120 reviews)</p>
+      <button>Request Tutor</button>
     </div>
-  </section>
 
-  <!-- Payment Section -->
-  <section class="payment">
-    <h2>Book a Tutoring Session</h2>
-    <p>Pay ₹299 to get started</p>
-    <form>
-      <script 
-        src="https://checkout.razorpay.com/v1/payment-button.js"
-        data-payment_button_id="pl_R4tEB0LO6aPwr2" async>
-      </script>
-    </form>
-  </section>
+    <div class="tutor-card">
+      <img src="tutor2.png" alt="Tutor 2">
+      <h3>Priya Patel</h3>
+      <p>Science Tutor</p>
+      <p>⭐ 4.8 (95 reviews)</p>
+      <button>Request Tutor</button>
+    </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Free Tutoring. All rights reserved.</p>
-  </footer>
+    <div class="tutor-card">
+      <img src="tutor3.png" alt="Tutor 3">
+      <h3>Arjun Verma</h3>
+      <p>English Teacher</p>
+      <p>⭐ 4.7 (80 reviews)</p>
+      <button>Request Tutor</button>
+    </div>
+  </main>
 </body>
 </html>
