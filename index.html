@@ -7,17 +7,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- Header with Navigation -->
   <header>
     <h1>Free Tutoring</h1>
     <nav>
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active">Home</a>
       <a href="login.html">Login</a>
       <a href="register.html">Register</a>
     </nav>
   </header>
 
-  <!-- Filter Section -->
+  <!-- Filter + Search Section -->
   <section class="filter-section">
     <label for="subject">Filter by Subject:</label>
     <select id="subject">
@@ -26,33 +27,69 @@
       <option value="science">Science</option>
       <option value="english">English</option>
     </select>
+
+    <label for="search">Search Tutor:</label>
+    <input type="text" id="search" placeholder="Enter tutor name...">
   </section>
 
-  <!-- Tutor Cards -->
-  <main class="tutor-list">
-    <div class="tutor-card">
+  <!-- Tutor Cards Section -->
+  <section class="tutors">
+    <div class="tutor-card" data-subject="math">
       <img src="tutor1.png" alt="Tutor 1">
-      <h3>Ravi Sharma</h3>
-      <p>Math Specialist</p>
-      <p>⭐ 4.9 (120 reviews)</p>
-      <button>Request Tutor</button>
+      <h3>John Doe</h3>
+      <p>Math Tutor</p>
+      <p>⭐⭐⭐⭐⭐</p>
+      <button>Request Class</button>
     </div>
 
-    <div class="tutor-card">
+    <div class="tutor-card" data-subject="science">
       <img src="tutor2.png" alt="Tutor 2">
-      <h3>Priya Patel</h3>
+      <h3>Jane Smith</h3>
       <p>Science Tutor</p>
-      <p>⭐ 4.8 (95 reviews)</p>
-      <button>Request Tutor</button>
+      <p>⭐⭐⭐⭐</p>
+      <button>Request Class</button>
     </div>
 
-    <div class="tutor-card">
+    <div class="tutor-card" data-subject="english">
       <img src="tutor3.png" alt="Tutor 3">
-      <h3>Arjun Verma</h3>
-      <p>English Teacher</p>
-      <p>⭐ 4.7 (80 reviews)</p>
-      <button>Request Tutor</button>
+      <h3>Michael Johnson</h3>
+      <p>English Tutor</p>
+      <p>⭐⭐⭐⭐⭐</p>
+      <button>Request Class</button>
     </div>
-  </main>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Free Tutoring. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Script for Filter + Search -->
+  <script>
+    const subjectFilter = document.getElementById("subject");
+    const searchInput = document.getElementById("search");
+    const tutorCards = document.querySelectorAll(".tutor-card");
+
+    function filterTutors() {
+      const subject = subjectFilter.value.toLowerCase();
+      const search = searchInput.value.toLowerCase();
+
+      tutorCards.forEach(card => {
+        const tutorSubject = card.getAttribute("data-subject").toLowerCase();
+        const tutorName = card.querySelector("h3").textContent.toLowerCase();
+
+        if ((subject === "all" || tutorSubject === subject) &&
+            tutorName.includes(search)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    subjectFilter.addEventListener("change", filterTutors);
+    searchInput.addEventListener("keyup", filterTutors);
+  </script>
+
 </body>
 </html>
