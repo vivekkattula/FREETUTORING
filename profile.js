@@ -1,54 +1,49 @@
+// profile.js
 import { auth, db } from "./firebase.js";
-import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Redirect if not logged in
+// Reference to form
+const profileForm = document.getElementById("profileForm");
+const nameInput = document.getElementById("name");
+const roleInput = document.getElementById("role");
+const bioInput = document.getElementById("bio");
+
+// Load user profile when logged in
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-  } else {
-    console.log("✅ Logged in:", user.email);
+  if (user) {
+    console.log("✅ Logged in as:", user.email);
 
-    // Load profile if exists
+    // Check if profile already exists
     const userRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(userRef);
+    const userSnap = await getDoc(userRef);
 
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      document.getElementById("name").value = data.name || "";
-      document.getElementById("role").value = data.role || "student";
-      document.getElementById("subject").value = data.subject || "";
-      document.getElementById("bio").value = data.bio || "";
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      nameInput.value = data.name || "";
+      roleInput.value = data.role || "";
+      bioInput.value = data.bio || "";
     }
+  } else {
+    // Redirect if not logged in
+    window.location.href = "login.html";
   }
 });
 
-// Save profile
-document.getElementById("profileForm").addEventListener("submit", async (e) => {
+// Save profile data
+profileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const user = auth.currentUser;
-  if (!user) return alert("Not logged in!");
+  if (!user) return alert("You must be logged in!");
 
-  const profileData = {
-    name: document.getElementById("name").value,
-    role: document.getElementById("role").value,
-    subject: document.getElementById("subject").value,
-    bio: document.getElementById("bio").value,
+  const userRef = doc(db, "users", user.uid);
+  await setDoc(userRef, {
+    name: nameInput.value,
+    role: roleInput.value,
+    bio: bioInput.value,
     email: user.email
-  };
+  });
 
-  try {
-    await setDoc(doc(db, "users", user.uid), profileData);
-    alert("✅ Profile saved!");
-  } catch (error) {
-    console.error("❌ Error saving profile:", error);
-    alert("Error saving profile. Check console.");
-  }
-});
-
-// Logout
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "login.html";
+  alert("✅ Profile saved successfully!");
 });

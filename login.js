@@ -1,23 +1,32 @@
 // login.js
 import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { 
+  signInWithEmailAndPassword,
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Handle login form submit
-document.getElementById("loginForm").addEventListener("submit", (e) => {
+// Redirect already logged-in users directly to profile
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("✅ Already logged in, redirecting to profile...");
+    window.location.href = "profile.html";
+  }
+});
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log("✅ Login successful:", userCredential.user.email);
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log("✅ Logged in:", userCredential.user);
 
-      // Redirect user to profile page after login
-      window.location.href = "profile.html";
-    })
-    .catch((error) => {
-      console.error("❌ Login failed:", error.message);
-      alert("Login failed: " + error.message);
-    });
+    // Redirect after login
+    window.location.href = "profile.html";
+  } catch (error) {
+    console.error("❌ Login failed:", error.message);
+    alert("Login failed: " + error.message);
+  }
 });

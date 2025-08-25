@@ -1,39 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Profile - FreeTutoring</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile - Free Tutoring</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .profile-box {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
+    h2 { color: #333; margin-bottom: 20px; }
+    label { display: block; margin-top: 10px; color: #555; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    .logout {
+      background: #dc3545;
+    }
+    .logout:hover {
+      background: #a71d2a;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>My Profile</h1>
-    <button id="logoutBtn">Logout</button>
-  </header>
-
-  <main>
+  <div class="profile-box">
+    <h2>My Profile</h2>
     <form id="profileForm">
-      <label for="name">Full Name:</label>
-      <input type="text" id="name" placeholder="Enter your name" required>
+      <label>Name:</label>
+      <input type="text" id="name" placeholder="Your Name" required />
 
-      <label for="role">Role:</label>
-      <select id="role" required>
-        <option value="student">Student</option>
-        <option value="tutor">Tutor</option>
-      </select>
+      <label>Role (Student / Tutor):</label>
+      <input type="text" id="role" placeholder="Student or Tutor" required />
 
-      <label for="subject">Subject:</label>
-      <input type="text" id="subject" placeholder="Math, Science, English">
-
-      <label for="bio">Bio:</label>
+      <label>Bio:</label>
       <textarea id="bio" placeholder="Write something about yourself..."></textarea>
 
       <button type="submit">Save Profile</button>
     </form>
-  </main>
 
-  <script type="module" src="firebase.js"></script>
+    <button class="logout" id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Firebase Auth Redirect Check -->
+  <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // 🚫 No user → kick back to login
+        window.location.href = "login.html";
+      } else {
+        console.log("✅ Logged in user:", user.email);
+      }
+    });
+
+    // Logout button
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+
+  <!-- Profile save logic -->
   <script type="module" src="profile.js"></script>
 </body>
 </html>
