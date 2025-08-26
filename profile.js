@@ -1,89 +1,93 @@
-// profile.js
-import { auth, db } from "./firebase.js";
-import { 
-  onAuthStateChanged, 
-  signOut 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { 
-  doc, setDoc, getDoc 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { 
-  getStorage, ref, uploadBytes, getDownloadURL 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+// Import Firebase SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase Storage init
-const storage = getStorage();
+// ✅ Your Firebase configuration (copied from your console)
+const firebaseConfig = {
+  apiKey: "AIzaSyBAB1RatL7MlFxCKIDM6y10mArNOsH4_v8",
+  authDomain: "freetutoring-4d649.firebaseapp.com",
+  projectId: "freetutoring-4d649",
+  storageBucket: "freetutoring-4d649.firebasestorage.app",
+  messagingSenderId: "874862317947",
+  appId: "1:874862317947:web:3dd0190bb074729466edde",
+  measurementId: "G-4H92BXM3PC"
+};
 
-const profileForm = document.getElementById("profileForm");
-const logoutBtn = document.getElementById("logoutBtn");
-const profilePicInput = document.getElementById("profilePic");
-const profilePicPreview = document.getElementById("profilePicPreview");
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Check if user is logged in
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html"; // redirect if not logged in
-    return;
-  }
+// UI elements
+const profilePic = document.getElementById("profilePic");
+const fileInput = document.getElementById("fileInput");
+const uploadBtn = document.getElementById("uploadBtn");
+const profileName = document.getElementById("profileName");
+const profileRole = document.getElementById("profileRole");
+const profileEmail = document.getElementById("profileEmail");
 
-  console.log("✅ Logged in as:", user.email);
+// Tabs
+const tabs = document.querySelectorAll(".tab");
+const tabContents = document.querySelectorAll(".tab-content");
 
-  // Load existing profile data
-  const userRef = doc(db, "users", user.uid);
-  const userSnap = await getDoc(userRef);
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
 
-  if (userSnap.exists()) {
-    const data = userSnap.data();
-    document.getElementById("name").value = data.name || "";
-    document.getElementById("role").value = data.role || "student";
-
-    if (data.photoURL) {
-      profilePicPreview.src = data.photoURL;
-    }
-  }
-});
-
-// Handle profile form save
-profileForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const user = auth.currentUser;
-  if (!user) return alert("Not logged in!");
-
-  const name = document.getElementById("name").value;
-  const role = document.getElementById("role").value;
-
-  let photoURL = "";
-
-  // If new photo selected → upload to Firebase Storage
-  if (profilePicInput.files.length > 0) {
-    const file = profilePicInput.files[0];
-    const storageRef = ref(storage, `profilePictures/${user.uid}`);
-    await uploadBytes(storageRef, file);
-    photoURL = await getDownloadURL(storageRef);
-  }
-
-  // Save in Firestore
-  await setDoc(doc(db, "users", user.uid), {
-    name,
-    role,
-    email: user.email,
-    photoURL: photoURL || profilePicPreview.src || ""
+    const target = tab.dataset.tab;
+    tabContents.forEach(c => {
+      c.classList.remove("active");
+      if (c.id === target) c.classList.add("active");
+    });
   });
-
-  alert("✅ Profile saved successfully!");
 });
 
-// Show selected picture preview
-profilePicInput.addEventListener("change", () => {
-  const file = profilePicInput.files[0];
-  if (file) {
-    profilePicPreview.src = URL.createObjectURL(file);
+// Auth check
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    profileEmail.textContent = user.email;
+
+    const docRef = doc(db, "profiles", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      profileName.textContent = data.name || "No Name";
+      profileRole.textContent = data.role || "student";
+      if (data.photoURL) profilePic.src = data.photoURL;
+    } else {
+      profileName.textContent = user.displayName || "New User";
+      profileRole.textContent = "student";
+    }
+  } else {
+    window.location.href = "login.html";
   }
 });
 
-// Handle logout
-logoutBtn.addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "login.html";
+// Upload photo (Base64 stored in Firestore)
+uploadBtn.addEventListener("click", async () => {
+  const file = fileInput.files[0];
+  if (!file) return alert("Please choose a file first.");
+
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64 = reader.result;
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    await setDoc(doc(db, "profiles", user.uid), {
+      photoURL: base64,
+    }, { merge: true });
+
+    profilePic.src = base64;
+    alert("Profile picture updated!");
+  };
+  reader.readAsDataURL(file);
 });
+
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+document.getElementById("logoutBtn2").addEventListener("click", () => signOut(auth));
