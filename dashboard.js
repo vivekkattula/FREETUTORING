@@ -1,58 +1,48 @@
-import { auth, db } from .firebase-config.js;
-import { onAuthStateChanged, signOut } from httpswww.gstatic.comfirebasejs10.12.2firebase-auth.js;
-import { doc, getDoc, collection, getDocs, addDoc } from httpswww.gstatic.comfirebasejs10.12.2firebase-firestore.js;
+import { auth, db } from "./firebase.js";
+import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
 
- 🔹 Load user data
-onAuthStateChanged(auth, async (user) = {
+// Show user info
+auth.onAuthStateChanged(async (user) => {
   if (user) {
-    document.getElementById(studentEmail).textContent = user.email;
+    document.getElementById("userEmail").innerText = user.email;
 
-     Load profile
-    const userRef = doc(db, users, user.uid);
-    const userSnap = await getDoc(userRef);
-    if (userSnap.exists()) {
-      const data = userSnap.data();
-      document.getElementById(studentName).textContent = data.name  Student;
-      if (data.photoURL) {
-        document.getElementById(profilePic).src = data.photoURL;
-      }
+    const userDocRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      document.getElementById("userName").innerText = data.name || "No Name";
+      document.getElementById("status").innerText = data.status || "Your profile is under review ✅";
+    } else {
+      document.getElementById("userName").innerText = "New User";
+      document.getElementById("status").innerText = "Please complete your profile.";
     }
 
-     Load tutors
-    const tutorsRef = collection(db, tutors);
-    const tutorsSnap = await getDocs(tutorsRef);
-    let tutorList = ;
-    tutorsSnap.forEach(doc = {
-      const t = doc.data();
-      tutorList += `li${t.name} - ${t.subject}li`;
+    // Fetch class requests
+    const classRequestsSnap = await getDocs(collection(db, "classRequests"));
+    let classRequestsHTML = "";
+    classRequestsSnap.forEach((doc) => {
+      const req = doc.data();
+      classRequestsHTML += `<li>${req.studentName} - ${req.subject} (${req.status})</li>`;
     });
-    document.getElementById(tutorsList).innerHTML = tutorList  liNo tutors yetli;
+    document.getElementById("classRequests").innerHTML = classRequestsHTML || "<li>No requests yet.</li>";
+
+    // Fetch messages
+    const messagesSnap = await getDocs(collection(db, "messages"));
+    let messagesHTML = "";
+    messagesSnap.forEach((doc) => {
+      const msg = doc.data();
+      messagesHTML += `<li><b>${msg.from}</b>: ${msg.text}</li>`;
+    });
+    document.getElementById("messages").innerHTML = messagesHTML || "<li>No messages yet.</li>";
   } else {
-    window.location.href = login.html;  redirect if not logged in
+    window.location.href = "login.html"; // Redirect if not logged in
   }
 });
 
- 🔹 Request Tutor (demo version)
-async function requestTutor() {
-  const user = auth.currentUser;
-  if (!user) return alert(Please login);
-
-  const requestRef = collection(db, requests);
-  await addDoc(requestRef, {
-    studentId user.uid,
-    timestamp new Date(),
-    status pending
+// Logout
+document.getElementById("logout").addEventListener("click", () => {
+  auth.signOut().then(() => {
+    window.location.href = "login.html";
   });
-
-  alert(Tutor request sent ✅);
-  location.reload();
-}
-window.requestTutor = requestTutor;
-
- 🔹 Logout
-function logout() {
-  signOut(auth).then(() = {
-    window.location.href = login.html;
-  });
-}
-window.logout = logout;
+});

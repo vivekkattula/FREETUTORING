@@ -3,84 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Dashboard - Free Tutoring</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f8fb;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #007bff;
-      color: white;
-      padding: 15px;
-      text-align: center;
-    }
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-    }
-    h2 { color: #333; margin-bottom: 15px; }
-    .profile {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .profile img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #007bff;
-    }
-    .section {
-      margin-bottom: 30px;
-    }
-    button {
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover { background: #0056b3; }
-  </style>
+  <title>Dashboard - Free Tutoring</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>🎓 Free Tutoring - Student Dashboard</h1>
-    <button onclick="logout()">Logout</button>
-  </header>
+  <nav class="navbar">
+    <div class="logo">Free Tutoring</div>
+    <ul>
+      <li><a href="profile.html">My Profile</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="#" id="logout">Logout</a></li>
+    </ul>
+  </nav>
 
-  <div class="container">
-    <!-- Profile -->
-    <div class="profile">
-      <img id="profilePic" src="default-avatar.png" alt="Profile Picture">
-      <h2 id="studentName">Loading...</h2>
-      <p id="studentEmail">Loading...</p>
-    </div>
+  <div class="dashboard-container">
+    <h2>Welcome, <span id="userName">Loading...</span></h2>
+    <p>Email: <span id="userEmail">Loading...</span></p>
 
-    <!-- Requests Section -->
-    <div class="section">
-      <h2>📌 My Tutor Requests</h2>
-      <ul id="requestsList">
-        <li>No requests yet.</li>
-      </ul>
-      <button onclick="requestTutor()">+ Request a Tutor</button>
-    </div>
+    <section class="status-section">
+      <h3>My Status</h3>
+      <p id="status">Fetching status...</p>
+    </section>
 
-    <!-- Tutors Section -->
-    <div class="section">
-      <h2>👩‍🏫 Available Tutors</h2>
-      <ul id="tutorsList">
-        <li>Loading tutors...</li>
-      </ul>
-    </div>
+    <section class="class-requests">
+      <h3>Class Requests</h3>
+      <ul id="classRequests"></ul>
+    </section>
+
+    <section class="messages">
+      <h3>Messages</h3>
+      <ul id="messages"></ul>
+    </section>
   </div>
 
   <script type="module" src="dashboard.js"></script>
