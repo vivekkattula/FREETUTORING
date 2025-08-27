@@ -1,48 +1,34 @@
-import { auth, db } from "./firebase.js";
-import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-// Show user info
-auth.onAuthStateChanged(async (user) => {
-  if (user) {
-    document.getElementById("userEmail").innerText = user.email;
+// Firebase Config (your keys)
+const firebaseConfig = {
+  apiKey: "AIzaSyBAB1RatL7MlFxCKIDM6y10mArNOsH4_v8",
+  authDomain: "freetutoring-4d649.firebaseapp.com",
+  projectId: "freetutoring-4d649",
+  storageBucket: "freetutoring-4d649.firebasestorage.app",
+  messagingSenderId: "874862317947",
+  appId: "1:874862317947:web:3dd0190bb074729466edde",
+  measurementId: "G-4H92BXM3PC"
+};
 
-    const userDocRef = doc(db, "users", user.uid);
-    const userDoc = await getDoc(userDocRef);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    if (userDoc.exists()) {
-      const data = userDoc.data();
-      document.getElementById("userName").innerText = data.name || "No Name";
-      document.getElementById("status").innerText = data.status || "Your profile is under review ✅";
-    } else {
-      document.getElementById("userName").innerText = "New User";
-      document.getElementById("status").innerText = "Please complete your profile.";
-    }
-
-    // Fetch class requests
-    const classRequestsSnap = await getDocs(collection(db, "classRequests"));
-    let classRequestsHTML = "";
-    classRequestsSnap.forEach((doc) => {
-      const req = doc.data();
-      classRequestsHTML += `<li>${req.studentName} - ${req.subject} (${req.status})</li>`;
-    });
-    document.getElementById("classRequests").innerHTML = classRequestsHTML || "<li>No requests yet.</li>";
-
-    // Fetch messages
-    const messagesSnap = await getDocs(collection(db, "messages"));
-    let messagesHTML = "";
-    messagesSnap.forEach((doc) => {
-      const msg = doc.data();
-      messagesHTML += `<li><b>${msg.from}</b>: ${msg.text}</li>`;
-    });
-    document.getElementById("messages").innerHTML = messagesHTML || "<li>No messages yet.</li>";
+// Check user login
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
   } else {
-    window.location.href = "login.html"; // Redirect if not logged in
+    document.querySelector("#classRequests").innerHTML = "<p>No requests yet</p>";
+    document.querySelector("#messages").innerHTML = "<p>No messages yet</p>";
   }
 });
 
 // Logout
-document.getElementById("logout").addEventListener("click", () => {
-  auth.signOut().then(() => {
-    window.location.href = "login.html";
-  });
+document.getElementById("logout").addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "login.html";
 });
