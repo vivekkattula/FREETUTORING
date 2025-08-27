@@ -32,8 +32,8 @@ if (loginForm) {
 
         alert("Login successful! Redirecting...");
 
-        // Redirect to profile page
-        window.location.href = "profile.html";
+        // ✅ Redirect to dashboard
+        window.location.href = "dashboard.html";
       } else {
         alert("⚠️ No user profile found in database.");
       }
