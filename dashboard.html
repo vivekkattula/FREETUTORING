@@ -3,38 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Free Tutoring</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Dashboard | Free Tutoring</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">Free Tutoring</div>
-    <ul>
-      <li><a href="profile.html">My Profile</a></li>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="#" id="logout">Logout</a></li>
-    </ul>
-  </nav>
+  <header>
+    <h1>Free Tutoring Dashboard</h1>
+    <nav>
+      <a href="profile.html">My Profile</a>
+      <a href="#" id="logout">Logout</a>
+    </nav>
+  </header>
 
-  <div class="dashboard-container">
-    <h2>Welcome, <span id="userName">Loading...</span></h2>
-    <p>Email: <span id="userEmail">Loading...</span></p>
-
-    <section class="status-section">
-      <h3>My Status</h3>
-      <p id="status">Fetching status...</p>
+  <main>
+    <section class="card">
+      <h2>Class Requests</h2>
+      <div id="classRequests">Loading...</div>
     </section>
 
-    <section class="class-requests">
-      <h3>Class Requests</h3>
-      <ul id="classRequests"></ul>
+    <section class="card">
+      <h2>Messages</h2>
+      <div id="messages">Loading...</div>
     </section>
-
-    <section class="messages">
-      <h3>Messages</h3>
-      <ul id="messages"></ul>
-    </section>
-  </div>
+  </main>
 
   <script type="module" src="dashboard.js"></script>
 </body>
