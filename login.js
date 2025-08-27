@@ -1,32 +1,46 @@
 // login.js
-import { auth } from "./firebase.js";
-import { 
-  signInWithEmailAndPassword,
-  onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { auth, db } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Redirect already logged-in users directly to profile
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("✅ Already logged in, redirecting to profile...");
-    window.location.href = "profile.html";
-  }
-});
+// Handle login form submit
+const loginForm = document.getElementById("loginForm");
 
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log("✅ Logged in:", userCredential.user);
+    try {
+      // Firebase login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-    // Redirect after login
-    window.location.href = "profile.html";
-  } catch (error) {
-    console.error("❌ Login failed:", error.message);
-    alert("Login failed: " + error.message);
-  }
-});
+      console.log("✅ Logged in:", user.uid);
+
+      // Fetch user details from Firestore
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+
+        // Save user data to localStorage
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        alert("Login successful! Redirecting...");
+
+        // Redirect to profile page
+        window.location.href = "profile.html";
+      } else {
+        alert("⚠️ No user profile found in database.");
+      }
+
+    } catch (error) {
+      console.error("❌ Login Error:", error.message);
+      alert("Login failed: " + error.message);
+    }
+  });
+}
