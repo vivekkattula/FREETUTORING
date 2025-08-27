@@ -1,8 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
-// Firebase Config (your keys)
+// Your Firebase config (replace with your project details)
 const firebaseConfig = {
   apiKey: "AIzaSyBAB1RatL7MlFxCKIDM6y10mArNOsH4_v8",
   authDomain: "freetutoring-4d649.firebaseapp.com",
@@ -13,22 +14,66 @@ const firebaseConfig = {
   measurementId: "G-4H92BXM3PC"
 };
 
+// Init Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Check user login
+// Check user auth
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "login.html";
+  if (user) {
+    // Load profile
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      document.getElementById("profileName").textContent = data.name || "No Name";
+      document.getElementById("profileEmail").textContent = user.email;
+      document.getElementById("profileAddress").textContent = data.address || "Not provided";
+      document.getElementById("profileStatus").textContent = data.status || "Pending Review";
+      if (data.photoURL) {
+        document.getElementById("profilePhoto").src = data.photoURL;
+      }
+    }
+
+    // Load class requests
+    const requestsSnapshot = await getDocs(collection(db, "classRequests"));
+    const requestsList = document.getElementById("classRequestsList");
+    requestsList.innerHTML = "";
+    if (requestsSnapshot.empty) {
+      requestsList.innerHTML = "<li>No requests yet</li>";
+    } else {
+      requestsSnapshot.forEach(doc => {
+        const req = doc.data();
+        const li = document.createElement("li");
+        li.textContent = `${req.studentName} requested ${req.subject}`;
+        requestsList.appendChild(li);
+      });
+    }
+
+    // Load messages
+    const messagesSnapshot = await getDocs(collection(db, "messages"));
+    const messagesList = document.getElementById("messagesList");
+    messagesList.innerHTML = "";
+    if (messagesSnapshot.empty) {
+      messagesList.innerHTML = "<li>No messages yet</li>";
+    } else {
+      messagesSnapshot.forEach(doc => {
+        const msg = doc.data();
+        const li = document.createElement("li");
+        li.textContent = `${msg.from}: ${msg.text}`;
+        messagesList.appendChild(li);
+      });
+    }
+
   } else {
-    document.querySelector("#classRequests").innerHTML = "<p>No requests yet</p>";
-    document.querySelector("#messages").innerHTML = "<p>No messages yet</p>";
+    // Redirect to login if not logged in
+    window.location.href = "login.html";
   }
 });
 
 // Logout
-document.getElementById("logout").addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "login.html";
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
 });

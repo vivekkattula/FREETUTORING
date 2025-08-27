@@ -3,27 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Free Tutoring</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Free Tutoring Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <header>
-    <h1>Free Tutoring Dashboard</h1>
+  <header class="topbar">
+    <div class="logo">Free Tutoring</div>
     <nav>
-      <a href="profile.html">My Profile</a>
-      <a href="#" id="logout">Logout</a>
+      <ul>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="#" id="profileLink">My Profile</a></li>
+        <li><a href="#" id="messagesLink">Messages</a></li>
+        <li><a href="#" id="adsLink">My Ads</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
     </nav>
   </header>
 
-  <main>
-    <section class="card">
-      <h2>Class Requests</h2>
-      <div id="classRequests">Loading...</div>
-    </section>
+  <main class="dashboard-container">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-card">
+        <img id="profilePhoto" src="default-avatar.png" alt="Profile Photo">
+        <h2 id="profileName">Loading...</h2>
+        <p id="profileEmail">user@email.com</p>
+        <p id="profileAddress">Your Address</p>
+        <button id="editProfileBtn">Edit Profile</button>
+      </div>
+    </aside>
 
-    <section class="card">
-      <h2>Messages</h2>
-      <div id="messages">Loading...</div>
+    <!-- Main Content -->
+    <section class="content">
+      <div class="status-card">
+        <h3>Status</h3>
+        <p id="profileStatus">Your profile is under review ✅</p>
+      </div>
+
+      <div class="class-requests">
+        <h3>Class Requests</h3>
+        <ul id="classRequestsList">
+          <li>No requests yet</li>
+        </ul>
+      </div>
+
+      <div class="messages">
+        <h3>Messages</h3>
+        <ul id="messagesList">
+          <li>No messages yet</li>
+        </ul>
+      </div>
     </section>
   </main>
 
