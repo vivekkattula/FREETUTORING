@@ -1,7 +1,11 @@
+// login.js
 import { auth } from "./firebaseConfig.js";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { 
+  signInWithEmailAndPassword, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Login form
+// Handle login form submit
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -12,24 +16,21 @@ if (loginForm) {
     const password = document.getElementById("password").value;
 
     try {
+      // Sign in with Firebase
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("✅ Login successful");
 
-      // Redirect to home page after login
-      window.location.href = "home.html";
-
+      // Redirect to dashboard.html after login
+      window.location.href = "dashboard.html";
     } catch (error) {
-      console.error("❌ Login failed:", error.message);
-      alert("Login failed: " + error.message);
+      alert("❌ Login failed: " + error.message);
     }
   });
 }
 
-// Keep user logged in
+// Auto-redirect if already logged in
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("User logged in:", user.email);
-    // Already logged in → go directly to home page
-    window.location.href = "home.html";
+    // Already logged in → send to dashboard
+    window.location.href = "dashboard.html";
   }
 });
