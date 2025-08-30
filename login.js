@@ -1,9 +1,7 @@
-// login.js
-import { auth, db } from "./firebase.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { auth } from "./firebaseConfig.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Handle login form submit
+// Login form
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -14,33 +12,24 @@ if (loginForm) {
     const password = document.getElementById("password").value;
 
     try {
-      // Firebase login
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("✅ Login successful");
 
-      console.log("✅ Logged in:", user.uid);
-
-      // Fetch user details from Firestore
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        const userData = userSnap.data();
-
-        // Save user data to localStorage
-        localStorage.setItem("user", JSON.stringify(userData));
-
-        alert("Login successful! Redirecting...");
-
-        // ✅ Redirect to dashboard
-        window.location.href = "dashboard.html";
-      } else {
-        alert("⚠️ No user profile found in database.");
-      }
+      // Redirect to home page after login
+      window.location.href = "home.html";
 
     } catch (error) {
-      console.error("❌ Login Error:", error.message);
+      console.error("❌ Login failed:", error.message);
       alert("Login failed: " + error.message);
     }
   });
 }
+
+// Keep user logged in
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User logged in:", user.email);
+    // Already logged in → go directly to home page
+    window.location.href = "home.html";
+  }
+});

@@ -1,58 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Tutoring Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Free Tutoring</title>
   <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+  <!-- Top Navigation -->
   <header class="topbar">
-    <div class="logo">Free Tutoring</div>
-    <nav>
-      <ul>
-        <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="#" id="profileLink">My Profile</a></li>
-        <li><a href="#" id="messagesLink">Messages</a></li>
-        <li><a href="#" id="adsLink">My Ads</a></li>
-        <li><a href="#" id="logoutBtn">Logout</a></li>
-      </ul>
-    </nav>
+    <div class="logo">FreeTutoring</div>
+    <div class="user-menu">
+      <img id="profilePic" class="user-pic" src="default-avatar.png" alt="Profile">
+      <span id="userEmail">Loading...</span>
+      <div class="dropdown" id="dropdownMenu">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="profile.html">👤 My Profile</a>
+        <a href="#">💬 Messages</a>
+        <a href="#">⭐ Tutors</a>
+        <a href="#">⚙ Settings</a>
+        <a href="#" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
   </header>
 
-  <main class="dashboard-container">
-    <!-- Left Sidebar -->
-    <aside class="sidebar">
-      <div class="profile-card">
-        <img id="profilePhoto" src="default-avatar.png" alt="Profile Photo">
-        <h2 id="profileName">Loading...</h2>
-        <p id="profileEmail">user@email.com</p>
-        <p id="profileAddress">Your Address</p>
-        <button id="editProfileBtn">Edit Profile</button>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <section class="content">
-      <div class="status-card">
-        <h3>Status</h3>
-        <p id="profileStatus">Your profile is under review ✅</p>
-      </div>
-
-      <div class="class-requests">
-        <h3>Class Requests</h3>
-        <ul id="classRequestsList">
-          <li>No requests yet</li>
-        </ul>
-      </div>
-
-      <div class="messages">
-        <h3>Messages</h3>
-        <ul id="messagesList">
-          <li>No messages yet</li>
-        </ul>
-      </div>
-    </section>
+  <!-- Dashboard Content -->
+  <main class="content">
+    <h1>Welcome to Your Dashboard 👋</h1>
+    <p>Here you can manage your tutoring requests, profile, and messages.</p>
   </main>
 
   <script type="module" src="dashboard.js"></script>
