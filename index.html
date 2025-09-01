@@ -4,92 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Tutoring</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
-
-  <!-- Header with Navigation -->
+  <!-- Navbar -->
   <header>
-    <h1>Free Tutoring</h1>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
+    <nav class="navbar">
+      <div class="logo">Free Tutoring</div>
+      <ul class="nav-links" id="navLinks"></ul>
+
+      <!-- Profile dropdown -->
+      <div class="profile-dropdown" id="profileDropdown">
+        <img src="default-avatar.png" alt="Profile" id="profilePic" class="profile-pic">
+        <input type="file" id="uploadPhoto" accept="image/*" hidden />
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="dashboard.html">My Dashboard</a>
+          <a href="messages.html">Messages</a>
+          <a href="myads.html">My Ads</a>
+          <a href="profile.html">My Profile</a>
+          <a href="#" id="changePhoto">Change Photo</a>
+          <a href="#" id="logoutBtn">Log Out</a>
+        </div>
+      </div>
     </nav>
   </header>
 
-  <!-- Filter + Search Section -->
-  <section class="filter-section">
-    <label for="subject">Filter by Subject:</label>
-    <select id="subject">
-      <option value="all">All</option>
-      <option value="math">Math</option>
-      <option value="science">Science</option>
-      <option value="english">English</option>
-    </select>
-
-    <label for="search">Search Tutor:</label>
-    <input type="text" id="search" placeholder="Enter tutor name...">
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Learn with the best tutors nearby</h1>
+    <p>Find tutors, book lessons, and grow your knowledge.</p>
+    <input type="text" placeholder="Try 'Maths'">
+    <input type="text" placeholder="Address or Postcode">
+    <button>Search</button>
   </section>
 
-  <!-- Tutor Cards Section -->
-  <section class="tutors">
-    <div class="tutor-card" data-subject="math">
-      <img src="tutor1.png" alt="Tutor 1">
-      <h3>John Doe</h3>
-      <p>Math Tutor</p>
-      <p>⭐⭐⭐⭐⭐</p>
-      <button>Request Class</button>
-    </div>
-
-    <div class="tutor-card" data-subject="science">
-      <img src="tutor2.png" alt="Tutor 2">
-      <h3>Jane Smith</h3>
-      <p>Science Tutor</p>
-      <p>⭐⭐⭐⭐</p>
-      <button>Request Class</button>
-    </div>
-
-    <div class="tutor-card" data-subject="english">
-      <img src="tutor3.png" alt="Tutor 3">
-      <h3>Michael Johnson</h3>
-      <p>English Tutor</p>
-      <p>⭐⭐⭐⭐⭐</p>
-      <button>Request Class</button>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Free Tutoring. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Script for Filter + Search -->
-  <script>
-    const subjectFilter = document.getElementById("subject");
-    const searchInput = document.getElementById("search");
-    const tutorCards = document.querySelectorAll(".tutor-card");
-
-    function filterTutors() {
-      const subject = subjectFilter.value.toLowerCase();
-      const search = searchInput.value.toLowerCase();
-
-      tutorCards.forEach(card => {
-        const tutorSubject = card.getAttribute("data-subject").toLowerCase();
-        const tutorName = card.querySelector("h3").textContent.toLowerCase();
-
-        if ((subject === "all" || tutorSubject === subject) &&
-            tutorName.includes(search)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    }
-
-    subjectFilter.addEventListener("change", filterTutors);
-    searchInput.addEventListener("keyup", filterTutors);
-  </script>
-
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+  <script src="firebaseConfig.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
