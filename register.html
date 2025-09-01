@@ -33,7 +33,7 @@
     button {
       width: 100%;
       padding: 10px;
-      background: #007BFF;
+      background: #007bff;
       color: white;
       border: none;
       border-radius: 5px;
@@ -42,27 +42,77 @@
     }
     button:hover { background: #0056b3; }
     .link { margin-top: 15px; font-size: 14px; }
-    .link a { color: #007BFF; text-decoration: none; }
+    .link a { color: #007bff; text-decoration: none; }
   </style>
 </head>
 <body>
   <div class="register-box">
     <h2>Create Account</h2>
     <form id="registerForm">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
       <select id="role" required>
         <option value="">Select Role</option>
         <option value="student">Student</option>
         <option value="tutor">Tutor</option>
       </select>
-      <input type="text" id="name" placeholder="Full Name" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
       <button type="submit">Register</button>
     </form>
     <p class="link">Already have an account? <a href="login.html">Login</a></p>
   </div>
 
-  <!-- Firebase Config & Script -->
-  <script type="module" src="register.js"></script>
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // 🔹 Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBAB1RatL7MlFxCKIDM6y10mArNOsH4_v8",
+      authDomain: "freetutoring-4d649.firebaseapp.com",
+      projectId: "freetutoring-4d649",
+      storageBucket: "freetutoring-4d649.firebasestorage.app",
+      messagingSenderId: "874862317947",
+      appId: "1:874862317947:web:3dd0190bb074729466edde",
+      measurementId: "G-4H92BXM3PC"
+    };
+
+    // 🔹 Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // 🔹 Handle Registration
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const role = document.getElementById("role").value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Save name to profile
+        await updateProfile(user, { displayName: name });
+
+        // Save user details in Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          name: name,
+          email: email,
+          role: role,
+          createdAt: new Date()
+        });
+
+        alert("✅ Registration successful! Redirecting...");
+        window.location.href = "index.html"; // redirect after signup
+      } catch (error) {
+        alert("❌ Error: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
