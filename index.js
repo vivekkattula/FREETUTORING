@@ -1,31 +1,25 @@
-import { auth, db } from './firebase.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// Toggle dropdown on profile click
+document.addEventListener("DOMContentLoaded", () => {
+  const profileDropdown = document.querySelector(".profile-dropdown");
+  const profilePic = document.getElementById("profile-pic");
 
-const profilePic = document.getElementById("nav-profile-pic");
-const dropdownMenu = document.getElementById("dropdown-menu");
-const logoutBtn = document.getElementById("logoutBtn");
-
-profilePic.addEventListener("click", () => {
-  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-});
-
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const userDoc = await getDoc(doc(db, "users", user.uid));
-    if (userDoc.exists()) {
-      const data = userDoc.data();
-      if (data.photoURL) {
-        profilePic.src = data.photoURL;
-      }
-    }
-  } else {
-    window.location.href = "login.html";
-  }
-});
-
-logoutBtn.addEventListener("click", () => {
-  signOut(auth).then(() => {
-    window.location.href = "login.html";
+  profilePic.addEventListener("click", () => {
+    profileDropdown.classList.toggle("show");
   });
+
+  // Close dropdown when clicking outside
+  window.addEventListener("click", (e) => {
+    if (!profileDropdown.contains(e.target)) {
+      profileDropdown.classList.remove("show");
+    }
+  });
+
+  // Logout functionality
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      alert("Logged out!");
+      window.location.href = "login.html";
+    });
+  }
 });

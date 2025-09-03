@@ -1,69 +1,126 @@
-body {
+/* Reset */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
+}
+
+body {
   background: #f9f9f9;
 }
+
+/* Navbar */
 .navbar {
+  background: #007bff;
+  color: #fff;
+  padding: 12px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: #007bff;
-  color: #fff;
 }
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  align-items: center;
 }
+
+.nav-links li {
+  margin-left: 20px;
+  position: relative;
+}
+
 .nav-links a {
   text-decoration: none;
   color: white;
   font-weight: bold;
 }
-.profile-menu {
-  position: relative;
+
+.nav-links a:hover {
+  text-decoration: underline;
 }
-.profile-pic {
-  width: 40px;
-  height: 40px;
+
+/* Profile Dropdown */
+.profile-dropdown img {
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   cursor: pointer;
+  border: 2px solid #fff;
 }
-.dropdown {
+
+.dropdown-content {
   display: none;
   position: absolute;
+  top: 45px;
   right: 0;
-  background: white;
-  color: black;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-top: 10px;
-  width: 150px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background: #fff;
+  min-width: 180px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
 }
-.dropdown a {
+
+.dropdown-content a {
   display: block;
   padding: 10px;
+  color: #333;
   text-decoration: none;
-  color: black;
 }
-.dropdown a:hover {
+
+.dropdown-content a:hover {
   background: #f2f2f2;
 }
+
+/* Show dropdown when active */
+.profile-dropdown.show .dropdown-content {
+  display: block;
+}
+
+/* Hero */
 .hero {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 80px;
 }
+
+.hero h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .search-box input {
   padding: 10px;
-  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
+
 .search-box button {
   padding: 10px 20px;
   background: #007bff;
-  color: white;
+  color: #fff;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
+}
+
+.search-box button:hover {
+  background: #0056b3;
 }

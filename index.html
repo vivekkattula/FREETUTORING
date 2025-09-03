@@ -11,16 +11,14 @@
   <nav class="navbar">
     <div class="logo">Free Tutoring</div>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="dashboard.html">Dashboard</a></li>
       <li class="profile-dropdown">
-        <img id="profile-pic" 
-             src="https://www.w3schools.com/howto/img_avatar.png" 
-             alt="Profile">
-        <div class="dropdown-content" id="dropdown-menu">
+        <img src="default-avatar.png" id="profile-pic" alt="Profile">
+        <div class="dropdown-content">
           <a href="dashboard.html">My Dashboard</a>
           <a href="profile.html">My Profile</a>
-          <a href="#">Messages</a>
+          <a href="messages.html">Messages</a>
           <a href="#" id="logout-btn">Log Out</a>
         </div>
       </li>
@@ -32,14 +30,12 @@
     <h1>Learn with the best tutors nearby</h1>
     <p>Find tutors, book lessons, and grow your knowledge.</p>
     <div class="search-box">
-      <input type="text" placeholder="Try 'Maths'" id="subject">
-      <input type="text" placeholder="Hyderabad" id="location">
-      <button id="search-btn">Search</button>
+      <input type="text" placeholder="Try 'Maths'">
+      <input type="text" placeholder="Hyderabad">
+      <button>Search</button>
     </div>
   </section>
 
-  <!-- Scripts -->
-  <script type="module" src="firebase.js"></script>
-  <script type="module" src="index.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
