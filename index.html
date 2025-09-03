@@ -7,34 +7,39 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">Free Tutoring</div>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="dashboard.html">Dashboard</a></li>
+      <li class="profile-dropdown">
+        <img id="profile-pic" 
+             src="https://www.w3schools.com/howto/img_avatar.png" 
+             alt="Profile">
+        <div class="dropdown-content" id="dropdown-menu">
+          <a href="dashboard.html">My Dashboard</a>
+          <a href="profile.html">My Profile</a>
+          <a href="#">Messages</a>
+          <a href="#" id="logout-btn">Log Out</a>
+        </div>
+      </li>
     </ul>
-    <div class="profile-menu">
-      <img id="nav-profile-pic" class="profile-pic" src="default-avatar.png" alt="Profile">
-      <div class="dropdown" id="dropdown-menu">
-        <a href="dashboard.html">My Dashboard</a>
-        <a href="profile.html">My Profile</a>
-        <a href="messages.html">Messages</a>
-        <a href="#" id="logoutBtn">Log Out</a>
-      </div>
-    </div>
   </nav>
 
+  <!-- Hero Section -->
   <section class="hero">
     <h1>Learn with the best tutors nearby</h1>
     <p>Find tutors, book lessons, and grow your knowledge.</p>
     <div class="search-box">
-      <input type="text" placeholder="Try 'Maths'">
-      <input type="text" placeholder="Hyderabad">
-      <button>Search</button>
+      <input type="text" placeholder="Try 'Maths'" id="subject">
+      <input type="text" placeholder="Hyderabad" id="location">
+      <button id="search-btn">Search</button>
     </div>
   </section>
 
-  <script src="firebase.js"></script>
-  <script src="index.js"></script>
+  <!-- Scripts -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="index.js"></script>
 </body>
 </html>
