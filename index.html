@@ -7,41 +7,34 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <header>
-    <nav class="navbar">
-      <div class="logo">Free Tutoring</div>
-      <ul class="nav-links" id="navLinks"></ul>
-
-      <!-- Profile dropdown -->
-      <div class="profile-dropdown" id="profileDropdown">
-        <img src="default-avatar.png" alt="Profile" id="profilePic" class="profile-pic">
-        <input type="file" id="uploadPhoto" accept="image/*" hidden />
-        <div class="dropdown-menu" id="dropdownMenu">
-          <a href="dashboard.html">My Dashboard</a>
-          <a href="messages.html">Messages</a>
-          <a href="myads.html">My Ads</a>
-          <a href="profile.html">My Profile</a>
-          <a href="#" id="changePhoto">Change Photo</a>
-          <a href="#" id="logoutBtn">Log Out</a>
-        </div>
+  <nav class="navbar">
+    <div class="logo">Free Tutoring</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="profile-menu">
+      <img id="nav-profile-pic" class="profile-pic" src="default-avatar.png" alt="Profile">
+      <div class="dropdown" id="dropdown-menu">
+        <a href="dashboard.html">My Dashboard</a>
+        <a href="profile.html">My Profile</a>
+        <a href="messages.html">Messages</a>
+        <a href="#" id="logoutBtn">Log Out</a>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
 
-  <!-- Hero Section -->
   <section class="hero">
     <h1>Learn with the best tutors nearby</h1>
     <p>Find tutors, book lessons, and grow your knowledge.</p>
-    <input type="text" placeholder="Try 'Maths'">
-    <input type="text" placeholder="Address or Postcode">
-    <button>Search</button>
+    <div class="search-box">
+      <input type="text" placeholder="Try 'Maths'">
+      <input type="text" placeholder="Hyderabad">
+      <button>Search</button>
+    </div>
   </section>
 
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
-  <script src="firebaseConfig.js"></script>
+  <script src="firebase.js"></script>
   <script src="index.js"></script>
 </body>
 </html>

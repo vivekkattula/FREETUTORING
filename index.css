@@ -1,72 +1,69 @@
-/* Navbar */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+}
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
   background: #007bff;
-  color: white;
+  color: #fff;
 }
-
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-}
-
 .nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
 }
-
 .nav-links a {
-  color: white;
   text-decoration: none;
-  font-weight: 500;
+  color: white;
+  font-weight: bold;
 }
-
-.profile-dropdown {
+.profile-menu {
   position: relative;
-  display: none;
 }
-
 .profile-pic {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
 }
-
-.dropdown-menu {
+.dropdown {
   display: none;
   position: absolute;
   right: 0;
   background: white;
   color: black;
-  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  margin-top: 10px;
+  width: 150px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  z-index: 100;
 }
-
-.dropdown-menu a {
+.dropdown a {
   display: block;
-  padding: 8px;
-  color: black;
+  padding: 10px;
   text-decoration: none;
+  color: black;
 }
-
-.dropdown-menu a:hover {
+.dropdown a:hover {
   background: #f2f2f2;
 }
-
-/* Show dropdown when active */
-.profile-dropdown.active .dropdown-menu {
-  display: block;
-}
-
-/* Hero */
 .hero {
   text-align: center;
-  padding: 50px;
+  margin-top: 100px;
+}
+.search-box input {
+  padding: 10px;
+  margin: 5px;
+}
+.search-box button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }

@@ -1,59 +1,31 @@
-// Firebase
-const auth = firebase.auth();
-const storage = firebase.storage();
+import { auth, db } from './firebase.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-auth.onAuthStateChanged((user) => {
-  const navLinks = document.getElementById("navLinks");
-  const profileDropdown = document.getElementById("profileDropdown");
-  const profilePic = document.getElementById("profilePic");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const changePhoto = document.getElementById("changePhoto");
-  const uploadPhoto = document.getElementById("uploadPhoto");
+const profilePic = document.getElementById("nav-profile-pic");
+const dropdownMenu = document.getElementById("dropdown-menu");
+const logoutBtn = document.getElementById("logoutBtn");
 
+profilePic.addEventListener("click", () => {
+  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+});
+
+onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // Logged in
-    navLinks.innerHTML = "";
-    profileDropdown.style.display = "block";
-
-    // Profile picture
-    profilePic.src = user.photoURL || "default-avatar.png";
-
-    // Toggle dropdown
-    profilePic.onclick = () => {
-      profileDropdown.classList.toggle("active");
-    };
-
-    // Upload new photo
-    changePhoto.addEventListener("click", () => {
-      uploadPhoto.click();
-    });
-
-    uploadPhoto.addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const storageRef = storage.ref(`profilePictures/${user.uid}`);
-      await storageRef.put(file);
-      const photoURL = await storageRef.getDownloadURL();
-
-      await user.updateProfile({ photoURL });
-      profilePic.src = photoURL;
-      alert("Profile picture updated!");
-    });
-
-    // Logout
-    logoutBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      auth.signOut().then(() => {
-        window.location.href = "login.html";
-      });
-    });
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      if (data.photoURL) {
+        profilePic.src = data.photoURL;
+      }
+    }
   } else {
-    // Not logged in
-    navLinks.innerHTML = `
-      <li><a href="login.html">Login</a></li>
-      <li><a href="register.html">Register</a></li>
-    `;
-    profileDropdown.style.display = "none";
+    window.location.href = "login.html";
   }
+});
+
+logoutBtn.addEventListener("click", () => {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
 });
